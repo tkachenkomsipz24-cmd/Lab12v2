@@ -18,6 +18,6 @@ public class FileProcessor
         }
 
         Console.WriteLine($"[FileProcessor] Успішно записано дані у файл: {path}");
-        _attempts = 0; // Скидаємо лічильник для наступних викликів
+        _attempts = 0;
     }
 }
