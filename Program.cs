@@ -14,18 +14,16 @@ public static class Program
         var fileProcessor = new FileProcessor();
         var networkClient = new NetworkClient();
 
-        // Делегат: повторюємо спроби тільки для визначених типів помилок
         Func<Exception, bool> shouldRetry = ex => 
             ex is IOException || ex is HttpRequestException;
 
         Console.WriteLine("=== 1. Тестування FileProcessor (IOException 3 рази, на 4-й успіх) ===");
         try
         {
-            // Ставимо retryCount = 4, щоб пережити 3 падіння
             RetryHelper.ExecuteWithRetry<bool>(() =>
             {
                 fileProcessor.WriteToFile("data.txt", "Важливі дані");
-                return true; // Оскільки метод void, повертаємо true для Func<T>
+                return true;
             }, retryCount: 4, initialDelay: TimeSpan.FromSeconds(0.5), shouldRetry: shouldRetry);
         }
         catch (Exception ex)
