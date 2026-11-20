@@ -18,13 +18,12 @@ public static class RetryHelper
         {
             try
             {
-                return operation(); // Якщо успішно — одразу повертаємо результат
+                return operation(); 
             }
             catch (Exception ex)
             {
                 attempt++;
                 
-                // Перевіряємо, чи не вичерпано ліміт спроб і чи підходить виняток для повтору
                 if (attempt > retryCount || (shouldRetry != null && !shouldRetry(ex)))
                 {
                     Console.WriteLine($"[RetryHelper] Остаточна помилка після {attempt} спроб(и): {ex.Message}");
@@ -35,7 +34,6 @@ public static class RetryHelper
                 
                 Thread.Sleep(currentDelay);
                 
-                // Експоненційна затримка: кожна наступна спроба чекає вдвічі довше
                 currentDelay = TimeSpan.FromMilliseconds(currentDelay.TotalMilliseconds * 2);
             }
         }
