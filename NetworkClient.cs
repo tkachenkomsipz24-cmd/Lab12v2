@@ -18,7 +18,7 @@ public class NetworkClient
         }
 
         Console.WriteLine($"[NetworkClient] Успішно завантажено файл '{filePath}' на {url}");
-        _attempts = 0; // Скидаємо лічильник
+        _attempts = 0;
         return true;
     }
 }
